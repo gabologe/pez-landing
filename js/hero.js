@@ -157,12 +157,18 @@ const isMobile = window.innerWidth <= 767;
     line3.classList.add('green');
   }, '-=0.1');
 
-  // 11. CTA aparece
-  master.to(activeCta, {
+// 11. CTA aparece — animamos ambos por seguridad
+  master.to(ctaHero, {
     opacity: 1,
     duration: 0.8,
     ease: 'back.out(1.4)'
   }, '-=0.3');
+
+  master.to(ctaHeroMobile, {
+    opacity: 1,
+    duration: 0.8,
+    ease: 'back.out(1.4)'
+  }, '-=0.8');
 
   // Arrancar
   master.play();
