@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const ctaHeader     = document.getElementById('cta-header');
   const hint          = document.getElementById('scroll-hint');
 
-  const isMobile  = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+const isMobile = window.innerWidth <= 767;
   const activeCta = isMobile ? ctaHeroMobile : ctaHero;
 
   // ─────────────────────────────────────────
