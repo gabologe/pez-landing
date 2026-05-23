@@ -207,14 +207,31 @@ const isMobile = window.innerWidth <= 767;
 
   if (video) {
     video.addEventListener('loadedmetadata', () => {
+
+      let targetTime = 0;
+      let currentTime = 0;
+      let rafId = null;
+
+      function updateVideo() {
+        const diff = targetTime - currentTime;
+        if (Math.abs(diff) > 0.001) {
+          currentTime += diff * 0.08;
+          video.currentTime = currentTime;
+          rafId = requestAnimationFrame(updateVideo);
+        }
+      }
+
       ScrollTrigger.create({
         trigger: '#hero-scroll-space',
         start: 'top 99%',
         end: 'bottom bottom',
         onUpdate: (self) => {
-          video.currentTime = self.progress * video.duration;
+          targetTime = self.progress * video.duration;
+          cancelAnimationFrame(rafId);
+          rafId = requestAnimationFrame(updateVideo);
         }
       });
+
     });
   }
 
