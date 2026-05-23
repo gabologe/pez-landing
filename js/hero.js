@@ -215,7 +215,7 @@ const isMobile = window.innerWidth <= 767;
       function updateVideo() {
         const diff = targetTime - currentTime;
         if (Math.abs(diff) > 0.001) {
-          currentTime += diff * 1;
+          currentTime += diff * 0.08;
           video.currentTime = currentTime;
           rafId = requestAnimationFrame(updateVideo);
         }
