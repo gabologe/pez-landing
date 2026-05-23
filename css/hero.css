@@ -1,0 +1,328 @@
+/* ── LOGO HERO (elemento volador) ── */
+#logo-hero-wrap {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 200;
+  pointer-events: none;
+}
+
+#logo-hero {
+  width: clamp(160px, 28vw, 320px);
+  height: auto;
+  display: block;
+  opacity: 0;
+}
+
+/* ── HERO DESKTOP ── */
+#hero {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background: #0E0E0E;
+  padding-top: 64px;
+  overflow: hidden;
+}
+
+/* ── MITAD IZQUIERDA ── */
+.hero-left {
+  width: 50%;
+  min-width: 50%;
+  max-width: 50%;
+  height: 100%;
+  padding: 0 6% 0 6%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: clamp(28px, 4vh, 52px);
+  flex-shrink: 0;
+  z-index: 2;
+  position: relative;
+  box-sizing: border-box;
+}
+
+/* ── DISPLAY TEXT ── */
+.display-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.display-line {
+  overflow: hidden;
+  line-height: 1.05;
+}
+
+/* Línea 1 — levemente más pequeña */
+#line-1 .display-text {
+  font-size: clamp(24px, 3.4vw, 64px);
+}
+
+/* Líneas 2 y 3 — más grandes, son el mensaje principal */
+#line-2 .display-text,
+#line-3 .display-text {
+  font-size: clamp(28px, 4.6vw, 88px);
+}
+
+/* Todas las líneas al mismo tamaño */
+.display-text {
+  display: block;
+  font-size: clamp(28px, 4.2vw, 84px);
+  font-weight: 900;
+  color: #FDFDFD;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  transform: translateY(110%);
+  opacity: 0;
+  white-space: nowrap;
+  -webkit-text-stroke: 0.5px #FDFDFD;
+  transition: color 2.5s ease;
+}
+
+/* TURNING en medium */
+#line-1 .display-text {
+  font-weight: 500;
+  font-size: clamp(28px, 4.2vw, 84px);
+}
+
+/* CONVERSATION INTO REVENUE en extra black */
+#line-2 .display-text,
+#line-3 .display-text {
+  font-weight: 900;
+  font-size: clamp(28px, 4.2vw, 84px);
+  color: #0E0E0E;
+  -webkit-text-stroke: 0.75px #ADFF00;
+}
+
+#line-2 .display-text.green,
+#line-3 .display-text.green {
+  color: #ADFF00;
+  -webkit-text-stroke: 0.75px #ADFF00;
+}
+
+/* ── CTA ── */
+.cta-btn {
+  font-family: 'Public Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #FDFDFD;
+  background: transparent;
+  border: 1px solid rgba(173, 255, 0, 0.5);
+  padding: 16px 40px;
+  border-radius: 8px;
+  cursor: pointer;
+  opacity: 0;
+  width: 260px;
+  text-align: center;
+  display: block;
+  white-space: nowrap;
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+.cta-btn:hover,
+.cta-btn:active {
+  background: #ADFF00;
+  color: #0E0E0E;
+  border-color: #ADFF00;
+}
+
+.cta-desktop { display: block; }
+.cta-mobile  { display: none;  }
+
+/* ── MITAD DERECHA DESKTOP ── */
+.hero-right {
+  width: 50%;
+  min-width: 50%;
+  max-width: 50%;
+  height: calc(100vh - 64px);
+  padding: 0;
+  display: flex;
+  align-items: stretch;
+  flex-shrink: 0;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* ── VIDEO WRAP ── */
+.hero-media-wrap {
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  overflow: hidden;
+  opacity: 0;
+  background: #1a1a1a;
+  transform: scale(0.04);
+  transform-origin: center center;
+  position: relative;
+}
+
+.hero-media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* ── FLECHA INACTIVIDAD DESKTOP ── */
+.scroll-hint {
+  position: absolute;
+  bottom: 32px;
+  left: 25%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 30;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+.scroll-hint.visible { opacity: 1; }
+
+.hint-chevron {
+  width: 14px;
+  height: 14px;
+  border-right: 2px solid #c8f263;
+  border-bottom: 2px solid #c8f263;
+  transform: rotate(45deg);
+  animation: chevPulse 1.9s ease-in-out infinite;
+}
+
+@keyframes chevPulse {
+  0%,100% { opacity: 0.2; transform: rotate(45deg) translate(-2px,-2px); }
+  50%     { opacity: 1;   transform: rotate(45deg) translate(2px,2px); }
+}
+
+/* ── SCROLL SPACE ── */
+#hero-scroll-space {
+  height: 200vh;
+  background: #0E0E0E;
+}
+
+/* ── SIGUIENTE SECCIÓN ── */
+#next-section {
+  min-height: 100vh;
+  background: #111111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,0.2);
+  font-size: 13px;
+}
+
+/* ────────────────────────────────────────
+   MOBILE
+──────────────────────────────────────── */
+@media (max-width: 767px) {
+
+  #hero {
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    padding-top: 7vh;
+    height: 100svh;
+    min-height: 100svh;
+    overflow: hidden;
+  }
+
+  /* 1 — Texto arriba */
+  .hero-left {
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+    height: auto;
+    flex-shrink: 0;
+    padding: 4vw 5vw 3vw;
+    gap: clamp(16px, 3vw, 28px);
+    justify-content: flex-start;
+    order: 1;
+    box-sizing: border-box;
+  }
+
+  #line-1 .display-text {
+    font-size: clamp(22px, 7vw, 40px);
+  }
+
+  #line-2 .display-text,
+  #line-3 .display-text {
+    font-size: clamp(26px, 8.5vw, 52px);
+  }
+
+  .display-text {
+    font-size: clamp(26px, 8.5vw, 52px);
+    white-space: normal;
+    word-break: keep-all;
+  }
+
+  #line-1 .display-text {
+    font-size: clamp(26px, 8.5vw, 52px);
+    font-weight: 500;
+  }
+
+  #line-2 .display-text,
+  #line-3 .display-text {
+    font-size: clamp(26px, 8.5vw, 52px);
+    font-weight: 900;
+  }
+
+  /* 2 — Video ocupa espacio flexible */
+  .hero-right {
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+    flex: 1;
+    min-height: 0;
+    padding: 0;
+    order: 2;
+    align-items: stretch;
+    box-sizing: border-box;
+  }
+
+  .hero-media-wrap {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
+
+  /* CTA desktop oculto */
+  .cta-desktop { display: none; }
+
+  /* 3 — CTA debajo del video */
+  .cta-mobile {
+    display: block;
+    order: 3;
+    flex-shrink: 0;
+    width: calc(100% - 10vw);
+    margin: 3vw 5vw 0;
+    padding: 16px 0;
+    text-align: center;
+    opacity: 0;
+    box-sizing: border-box;
+    white-space: nowrap;
+    letter-spacing: 0.12em;
+  }
+
+  /* 4 — Espacio para la flecha: 1x nav */
+  .scroll-hint {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    transform: none;
+    height: 7vh;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    order: 4;
+  }
+
+}

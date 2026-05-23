@@ -1,0 +1,88 @@
+#site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #0E0E0E;
+  z-index: 100;
+  padding: 0 32px;
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  position: relative;
+}
+
+.header-logo-wrap {
+  display: inline-flex;
+  align-items: center;
+  opacity: 0;
+}
+
+.header-logo {
+  height: 26px;
+  width: auto;
+  display: block;
+}
+
+/* Línea vertical — crece desde el bottom border hacia arriba */
+.header-line-v {
+  position: absolute;
+  bottom: 0;
+  transform-origin: bottom center;
+  width: 1px;
+  height: 0px;
+  background: #3D3D3D;
+}
+
+/* Línea horizontal — bottom del header */
+.header-line-h {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 0%;
+  height: 1px;
+  background: #3D3D3D;
+}
+
+/* CTA header — invisible por defecto */
+.cta-header {
+  font-family: 'Public Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #FDFDFD;
+  background: transparent;
+  border: 1px solid rgba(173,255,0,0.5);
+  padding: 9px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  width: 200px;
+  text-align: center;
+  white-space: nowrap;
+  transition: background 0.3s ease, color 0.3s ease,
+              border-color 0.3s ease, opacity 0.5s ease;
+}
+.cta-header.visible {
+  opacity: 1;
+  pointer-events: all;
+}
+.cta-header:hover,
+.cta-header:active {
+  background: #ADFF00;
+  color: #0E0E0E;
+  border-color: #ADFF00;
+}
+
+/* ── MOBILE ── */
+@media (max-width: 767px) {
+  #site-header { padding: 0 5vw; }
+  .header-inner { height: 7vh; }
+  .header-logo { height: 3vh; }
+  .header-line-v { bottom: 0; }
+}

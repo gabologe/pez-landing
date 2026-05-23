@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PEZ® — Sistema de decisión</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/hero.css">
+</head>
+<body>
+
+  <!-- HEADER FIXED -->
+<header id="site-header">
+  <div class="header-inner">
+
+    <div class="header-logo-wrap" id="header-logo-wrap">
+      <img src="img/PEZ_Logo-PEZ-inverse.svg" alt="PEZ®" class="header-logo" id="header-logo">
+    </div>
+
+    <!-- Línea vertical fuera del logo-wrap -->
+    <div class="header-line-v" id="header-line-v"></div>
+
+    <button class="cta-header cta-scramble" id="cta-header">
+      <span class="cta-text">ENTER THE LOOP</span>
+    </button>
+
+  </div>
+  <div class="header-line-h" id="header-line-h"></div>
+</header>
+
+  <!-- LOGO HERO (se anima hacia el nav) -->
+  <div id="logo-hero-wrap">
+    <img src="img/PEZ_Logo-PEZ-inverse.svg" alt="PEZ®" id="logo-hero">
+  </div>
+
+  <!-- HERO -->
+<section id="hero">
+
+  <!-- Mitad izquierda: solo texto -->
+  <div class="hero-left">
+    <div class="display-wrap">
+      <div class="display-line" id="line-1">
+        <span class="display-text">TURNING</span>
+      </div>
+ <div class="display-line" id="line-2">
+  <span class="display-text" id="line-2-text">CONVERSATION</span>
+</div>
+<div class="display-line" id="line-3">
+  <span class="display-text" id="line-3-text">INTO REVENUE</span>
+</div>
+    </div>
+
+    <!-- CTA desktop: vive acá -->
+    <button class="cta-btn cta-scramble cta-desktop" id="cta-hero">
+      <span class="cta-text">ENTER THE LOOP</span>
+    </button>
+  </div>
+
+  <!-- Mitad derecha: gif/video -->
+    <div class="hero-media-wrap" id="hero-media-wrap">
+    <video
+        id="hero-video"
+        class="hero-media"
+        src="video/hero.mp4"
+        muted
+        playsinline
+        preload="auto">
+    </video>
+    </div>
+
+  <!-- CTA mobile: vive acá, debajo del gif -->
+  <button class="cta-btn cta-scramble cta-mobile" id="cta-hero-mobile">
+    <span class="cta-text">ENTER THE LOOP</span>
+  </button>
+
+  <!-- Flecha inactividad -->
+  <div class="scroll-hint" id="scroll-hint">
+    <div class="hint-chevron"></div>
+  </div>
+
+</section>
+
+  <div id="hero-scroll-space"></div>
+
+  <section id="next-section">
+    <p>Siguiente sección</p>
+  </section>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="js/scramble.js"></script>
+  <script src="js/header.js"></script>
+  <script src="js/hero.js"></script>
+
+</body>
+</html>
