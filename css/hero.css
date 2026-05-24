@@ -15,11 +15,25 @@
   opacity: 0;
 }
 
-/* ── HERO DESKTOP ── */
-#hero {
+/* ── CONTENEDOR PRINCIPAL ── */
+#main-scroll {
+  position: relative;
+}
+
+/* ── HERO STICKY WRAP ── */
+#hero-sticky-wrap {
   position: sticky;
   top: 0;
   height: 100vh;
+  z-index: 2;
+  transform-origin: center center;
+  overflow: hidden;
+}
+
+/* ── HERO DESKTOP ── */
+#hero {
+  position: relative;
+  height: 100%;
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -59,18 +73,6 @@
   line-height: 1.05;
 }
 
-/* Línea 1 — levemente más pequeña */
-#line-1 .display-text {
-  font-size: clamp(24px, 3.4vw, 64px);
-}
-
-/* Líneas 2 y 3 — más grandes, son el mensaje principal */
-#line-2 .display-text,
-#line-3 .display-text {
-  font-size: clamp(28px, 4.6vw, 88px);
-}
-
-/* Todas las líneas al mismo tamaño */
 .display-text {
   display: block;
   font-size: clamp(28px, 4.2vw, 84px);
@@ -85,17 +87,13 @@
   transition: color 2.5s ease;
 }
 
-/* TURNING en medium */
 #line-1 .display-text {
   font-weight: 500;
-  font-size: clamp(28px, 4.2vw, 84px);
 }
 
-/* CONVERSATION INTO REVENUE en extra black */
 #line-2 .display-text,
 #line-3 .display-text {
   font-weight: 900;
-  font-size: clamp(28px, 4.2vw, 84px);
   color: #0E0E0E;
   -webkit-text-stroke: 0.75px #ADFF00;
 }
@@ -114,7 +112,7 @@
   letter-spacing: 0.12em;
   color: #FDFDFD;
   background: transparent;
-  border: 1px solid rgba(173, 255, 0, 0.5);
+  border: 1px solid rgba(173,255,0,0.5);
   padding: 16px 40px;
   border-radius: 8px;
   cursor: pointer;
@@ -170,7 +168,27 @@
   display: block;
 }
 
-/* ── FLECHA INACTIVIDAD DESKTOP ── */
+/* ── FLECHA CENTRAL — fase 1 ── */
+.scroll-hint-center {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 30;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1s ease;
+  visibility: hidden;
+}
+.scroll-hint-center.visible {
+  visibility: visible;
+}
+
+/* ── FLECHA LATERAL — fase 3 ── */
 .scroll-hint {
   position: absolute;
   bottom: 32px;
@@ -203,25 +221,21 @@
 
 /* ── SCROLL SPACE ── */
 #hero-scroll-space {
-  height: 200vh;
+  height: 300vh;
   background: #0E0E0E;
-}
-
-/* ── SIGUIENTE SECCIÓN ── */
-#next-section {
-  min-height: 100vh;
-  background: #111111;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: rgba(255,255,255,0.2);
-  font-size: 13px;
 }
 
 /* ────────────────────────────────────────
    MOBILE
 ──────────────────────────────────────── */
 @media (max-width: 767px) {
+
+  #hero-sticky-wrap {
+    height: auto;
+    min-height: 100svh;
+    position: sticky;
+    top: 0;
+  }
 
   #hero {
     flex-direction: column;
@@ -233,7 +247,6 @@
     overflow: hidden;
   }
 
-  /* 1 — Texto arriba */
   .hero-left {
     width: 100%;
     min-width: 100%;
@@ -247,19 +260,11 @@
     box-sizing: border-box;
   }
 
-  #line-1 .display-text {
-    font-size: clamp(22px, 7vw, 40px);
-  }
-
-  #line-2 .display-text,
-  #line-3 .display-text {
-    font-size: clamp(26px, 8.5vw, 52px);
-  }
-
   .display-text {
     font-size: clamp(26px, 8.5vw, 52px);
     white-space: normal;
     word-break: keep-all;
+    -webkit-text-stroke: 0.5px #FDFDFD;
   }
 
   #line-1 .display-text {
@@ -271,9 +276,15 @@
   #line-3 .display-text {
     font-size: clamp(26px, 8.5vw, 52px);
     font-weight: 900;
+    -webkit-text-stroke: 0.5px #ADFF00;
   }
 
-  /* 2 — Video ocupa espacio flexible */
+  #line-2 .display-text.green,
+  #line-3 .display-text.green {
+    color: #ADFF00;
+    -webkit-text-stroke: 0.5px #ADFF00;
+  }
+
   .hero-right {
     width: 100%;
     min-width: 100%;
@@ -292,10 +303,8 @@
     border-radius: 0;
   }
 
-  /* CTA desktop oculto */
   .cta-desktop { display: none; }
 
-  /* 3 — CTA debajo del video */
   .cta-mobile {
     display: block;
     order: 3;
@@ -310,8 +319,7 @@
     letter-spacing: 0.12em;
   }
 
-  /* 4 — Espacio para la flecha: 1x nav */
-  .scroll-hint {
+  .scroll-hint-center {
     position: relative;
     bottom: auto;
     left: auto;
@@ -323,6 +331,10 @@
     justify-content: center;
     margin: 0;
     order: 4;
+  }
+
+  .scroll-hint {
+    display: none;
   }
 
 }
