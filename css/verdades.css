@@ -1,0 +1,151 @@
+/* ── SECCIÓN VERDADES ── */
+#verdades {
+  background: #0E0E0E;
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+}
+
+.verdades-scroll-space {
+  height: 500vh;
+  position: relative;
+}
+
+.verdades-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 6%;
+}
+
+/* ── ARCHIVO — ítems archivados arriba ── */
+.verdades-archivo {
+  position: absolute;
+  top: 64px;
+  left: 6%;
+  right: 6%;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.archivo-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 0.5px solid #3D3D3D;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.archivo-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.archivo-num {
+  font-family: 'Public Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: #ADFF00;
+  letter-spacing: 0.06em;
+  min-width: 28px;
+}
+
+.archivo-title {
+  font-family: 'Public Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.45);
+}
+
+/* ── ÍTEM ACTIVO ── */
+.verdad-activa {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.verdad-activa.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.verdad-num {
+  font-family: 'Public Sans', sans-serif;
+  font-size: clamp(80px, 12vw, 180px);
+  font-weight: 900;
+  color: #ADFF00;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.verdad-texto {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.verdad-titulo {
+  font-family: 'Public Sans', sans-serif;
+  font-size: clamp(24px, 3.5vw, 52px);
+  font-weight: 700;
+  color: #FDFDFD;
+  line-height: 1.15;
+}
+
+.verdad-sub {
+  font-family: 'Public Sans', sans-serif;
+  font-size: clamp(14px, 1.4vw, 18px);
+  font-weight: 400;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.6;
+}
+
+/* ── ÍTEM 04 — placeholder para estilo especial ── */
+.verdad-activa.es-respuesta .verdad-titulo {
+  font-size: clamp(22px, 3vw, 46px);
+  line-height: 1.4;
+  max-width: 700px;
+}
+
+/* ── MOBILE ── */
+@media (max-width: 767px) {
+  .verdades-sticky {
+    padding: 0 5vw;
+    justify-content: center;
+  }
+
+  .verdades-archivo {
+    left: 5vw;
+    right: 5vw;
+    top: 52px;
+  }
+
+  .verdad-activa {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .verdad-num {
+    font-size: clamp(64px, 18vw, 120px);
+  }
+
+  .archivo-item {
+    padding: 8px 0;
+  }
+
+  .archivo-title {
+    font-size: 11px;
+  }
+}
