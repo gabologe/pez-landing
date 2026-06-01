@@ -1,0 +1,298 @@
+/* ── SECCIÓN DECISIÓN ── */
+#decision {
+  margin-top: -20vh;
+  background: #0E0E0E;
+  position: relative;
+  z-index: 1;
+}
+
+.decision-scroll-space {
+  height: 350vh;
+  position: relative;
+}
+
+.decision-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 0 6%;
+  overflow: hidden;
+}
+
+.decision-contenido {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  width: 100%;
+}
+
+/* ── TÍTULO ── */
+.decision-titulo-wrap {
+  overflow: hidden;
+}
+
+.decision-titulo {
+  font-family: 'Public Sans', sans-serif;
+  font-size: clamp(32px, 5vw, 72px);
+  font-weight: 900;
+  line-height: 1.1;
+  margin: 0;
+  transform: translateY(120px);
+  opacity: 0;
+}
+
+.decision-titulo .verde {
+  color: #ADFF00;
+}
+
+/* ── GRID ── */
+.decision-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: end;
+  opacity: 0;
+}
+
+/* ── IZQUIERDA ── */
+.decision-izq {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  align-items: flex-start;
+}
+
+/* Círculo stat */
+.decision-circulo {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  border: 1px solid #ADFF00;
+  background: #0E0E0E;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: -20px;
+  position: relative;
+  z-index: 2;
+  transform: scale(0);
+}
+
+.decision-circulo-num {
+  font-family: 'Public Sans', sans-serif;
+  font-size: clamp(28px, 3vw, 48px);
+  font-weight: 900;
+  color: #ADFF00;
+  line-height: 1;
+}
+
+.decision-circulo-texto {
+  font-family: 'Public Sans', sans-serif;
+  font-size: clamp(10px, 0.8vw, 12px);
+  font-weight: 400;
+  color: #FDFDFD;
+  line-height: 1.5;
+  text-align: center;
+  max-width: 110px;
+}
+
+.decision-circulo-texto strong {
+  font-weight: 700;
+}
+
+/* Barras */
+.barras-wrap {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  height: 220px;
+  width: 100%;
+}
+
+.barra-item {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+}
+
+.barra-fill {
+  width: 100%;
+  background: #ADFF00;
+  border-radius: 4px 4px 0 0;
+  height: 0%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 10px;
+  overflow: hidden;
+  position: relative;
+}
+
+.barra-año {
+  font-family: 'Public Sans', sans-serif;
+  font-size: clamp(11px, 1vw, 15px);
+  font-weight: 900;
+  color: #0E0E0E;
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  bottom: 10px;
+}
+
+/* ── DERECHA ── */
+.decision-der {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Card personas */
+.decision-card {
+  border-radius: 16px;
+  padding: 32px;
+  display: flex;
+  gap: 32px;
+  align-items: center;
+  background: #0E0E0E;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Border animado via SVG overlay */
+.decision-card-border {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.decision-card-border rect {
+  fill: none;
+  stroke: #3D3D3D;
+  stroke-width: 1;
+  rx: 16;
+  ry: 16;
+}
+
+.decision-card-border rect:first-child {
+  stroke: #111111;
+}
+
+.border-path {
+  fill: none;
+  stroke: #ADFF00;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-dasharray: 0;
+  stroke-dashoffset: 0;
+}
+
+.personas-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  width: 50%;
+  flex-shrink: 0;
+  transform: scale(0.9);
+  transform-origin: top left;
+}
+
+.persona {
+  width: 100%;
+  aspect-ratio: 1 / 2;
+  background: #ADFF00;
+  border-radius: 999px;
+  opacity: 0;
+}
+
+.persona.gris {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.card-texto {
+  font-family: 'Public Sans', sans-serif;
+  font-size: clamp(14px, 1.2vw, 18px);
+  font-weight: 400;
+  color: #FDFDFD;
+  line-height: 1.7;
+  opacity: 0;
+  transform: translateX(-12px);
+}
+
+.card-texto strong {
+  font-weight: 700;
+}
+
+.card-texto .verde {
+  font-weight: 700;
+  color: #ADFF00;
+}
+
+/* Bloque 67% */
+.decision-bloque {
+  padding: 0 4px;
+  opacity: 0;
+  transform: translateY(16px);
+}
+
+.bloque-texto {
+  font-family: 'Public Sans', sans-serif;
+  font-size: clamp(14px, 1.2vw, 18px);
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.45);
+  line-height: 1.7;
+}
+
+.bloque-texto strong {
+  color: #FDFDFD;
+  font-weight: 700;
+}
+
+/* ── MOBILE ── */
+@media (max-width: 767px) {
+
+#decision {
+  margin-top: 0;
+}
+
+  .decision-sticky {
+    height: auto;
+    min-height: 100vh;
+    align-items: flex-start;
+    padding: 12vh 5vw 10vh;
+    overflow-y: auto;
+  }
+
+  .decision-grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .barras-wrap {
+    height: 160px;
+  }
+
+  .decision-titulo {
+    font-size: clamp(28px, 9vw, 48px);
+  }
+
+  .decision-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .personas-grid {
+    width: 100%;
+  }
+
+  .decision-circulo {
+    width: 130px;
+    height: 130px;
+  }
+}
