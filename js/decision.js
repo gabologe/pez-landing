@@ -20,12 +20,6 @@ document.addEventListener('DOMContentLoaded', function () {
     borderEl.setAttribute('height', h);
     borderEl.style.strokeDasharray = perimeter;
     borderEl.style.strokeDashoffset = perimeter;
-
-    const bgRect = document.querySelector('#card-border-svg rect:first-child');
-    if (bgRect) {
-      bgRect.setAttribute('width', w);
-      bgRect.setAttribute('height', h);
-    }
   }
 
   initBorder();
@@ -35,10 +29,11 @@ document.addEventListener('DOMContentLoaded', function () {
   gsap.set('.decision-titulo', { y: 120, opacity: 0 });
   gsap.set('.decision-grid', { opacity: 0 });
   gsap.set('.decision-circulo', { scale: 0 });
-  gsap.set('.barra-fill', { height: '1px', opacity: 0 });
+  gsap.set('.barra-fill', { height: '2px', opacity: 0 });
   gsap.set('.persona', { opacity: 0 });
   gsap.set('.card-texto', { opacity: 0, x: -12 });
-  gsap.set('.decision-bloque', { opacity: 0, y: 16 });
+  gsap.set('.decision-bloque', { opacity: 1 });
+  gsap.set('.bloque-linea', { opacity: 0, y: 12 });
 
   // ── Timeline principal ──
   const tl = gsap.timeline({
@@ -74,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function () {
     ease: 'back.out(1.4)'
   }, 1)
 
-  // 4. Barras aparecen desde 1px opacity 0 → crecen todas a la vez
+  // 4. Barras aparecen y crecen
   .to('.barra-fill', {
     opacity: 1,
     duration: 0.3,
@@ -87,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function () {
     ease: 'power2.inOut'
   }, 1.4)
 
-  // 5. Border card se dibuja en verde
+  // 5. Border card se dibuja
   .to(borderEl, {
     strokeDashoffset: 0,
     duration: 1.5,
@@ -110,11 +105,12 @@ document.addEventListener('DOMContentLoaded', function () {
     ease: 'power2.out'
   }, 4.2)
 
-  // 8. Bloque 67%
-  .to('.decision-bloque', {
+  // 8. Líneas del bloque 67% aparecen una a una
+  .to('.bloque-linea', {
     opacity: 1,
     y: 0,
-    duration: 0.6,
+    duration: 0.5,
+    stagger: 0.3,
     ease: 'power2.out'
   }, 5);
 

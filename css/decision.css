@@ -18,13 +18,13 @@
   display: flex;
   align-items: center;
   padding: 0 6%;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .decision-contenido {
   display: flex;
   flex-direction: column;
-  gap: 48px;
+  gap: 96px;
   width: 100%;
 }
 
@@ -39,8 +39,7 @@
   font-weight: 900;
   line-height: 1.1;
   margin: 0;
-  transform: translateY(120px);
-  opacity: 0;
+  color: #FDFDFD;
 }
 
 .decision-titulo .verde {
@@ -52,7 +51,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 64px;
-  align-items: end;
+  align-items: start;
   opacity: 0;
 }
 
@@ -62,14 +61,16 @@
   flex-direction: column;
   gap: 0;
   align-items: flex-start;
+  height: 100%;
+  justify-content: flex-end;
 }
 
 /* Círculo stat */
 .decision-circulo {
-  width: 160px;
-  height: 160px;
+  width: 180px;
+  height: 180px;
   border-radius: 50%;
-  border: 1px solid #ADFF00;
+  border: 0.5px solid #ADFF00;
   background: #0E0E0E;
   display: flex;
   flex-direction: column;
@@ -79,7 +80,6 @@
   margin-bottom: -20px;
   position: relative;
   z-index: 2;
-  transform: scale(0);
 }
 
 .decision-circulo-num {
@@ -104,13 +104,13 @@
   font-weight: 700;
 }
 
-/* Barras */
+/* ── BARRAS ── */
 .barras-wrap {
   display: flex;
   align-items: flex-end;
   gap: 10px;
-  height: 220px;
   width: 100%;
+  height: 260px;
 }
 
 .barra-item {
@@ -124,7 +124,6 @@
   width: 100%;
   background: #ADFF00;
   border-radius: 4px 4px 0 0;
-  height: 0%;
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -135,13 +134,13 @@
 
 .barra-año {
   font-family: 'Public Sans', sans-serif;
-  font-size: clamp(11px, 1vw, 15px);
+  font-size: clamp(16px, 2vw, 28px);
   font-weight: 900;
   color: #0E0E0E;
   width: 100%;
   text-align: center;
   position: absolute;
-  bottom: 10px;
+  bottom: 8px;
 }
 
 /* ── DERECHA ── */
@@ -149,11 +148,13 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
+  overflow: visible;
 }
 
 /* Card personas */
 .decision-card {
   border-radius: 16px;
+  border: none;
   padding: 32px;
   display: flex;
   gap: 32px;
@@ -172,52 +173,35 @@
   pointer-events: none;
 }
 
-.decision-card-border rect {
-  fill: none;
-  stroke: #3D3D3D;
-  stroke-width: 1;
-  rx: 16;
-  ry: 16;
-}
-
-.decision-card-border rect:first-child {
-  stroke: #111111;
-}
-
 .border-path {
   fill: none;
   stroke: #ADFF00;
-  stroke-width: 1.5;
+  stroke-width: 2px;
   stroke-linecap: round;
-  stroke-dasharray: 0;
-  stroke-dashoffset: 0;
 }
 
 .personas-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 8px;
-  width: 50%;
+  grid-template-columns: repeat(5, 28px);
+  gap: 12px;
+  row-gap: 20px;
   flex-shrink: 0;
-  transform: scale(0.9);
-  transform-origin: top left;
 }
 
 .persona {
-  width: 100%;
+  width: 28px;
   aspect-ratio: 1 / 2;
-  background: #ADFF00;
-  border-radius: 999px;
   opacity: 0;
+  object-fit: contain;
 }
 
 .persona.gris {
-  background: rgba(255, 255, 255, 0.2);
+  filter: brightness(0) invert(1) opacity(0.2);
 }
 
 .card-texto {
   font-family: 'Public Sans', sans-serif;
-  font-size: clamp(14px, 1.2vw, 18px);
+  font-size: clamp(16px, 1.6vw, 24px);
   font-weight: 400;
   color: #FDFDFD;
   line-height: 1.7;
@@ -236,30 +220,31 @@
 
 /* Bloque 67% */
 .decision-bloque {
-  padding: 0 4px;
-  opacity: 0;
-  transform: translateY(16px);
+  padding: 24px 4px 0;
+  max-width: 560px;
 }
 
-.bloque-texto {
+.bloque-linea {
   font-family: 'Public Sans', sans-serif;
-  font-size: clamp(14px, 1.2vw, 18px);
-  font-weight: 400;
-  color: rgba(255, 255, 255, 0.45);
-  line-height: 1.7;
+  font-size: clamp(20px, 2vw, 32px);
+  font-weight: 200;
+  color: #FDFDFD;
+  line-height: 1.5;
+  opacity: 0;
+  transform: translateY(12px);
+  margin: 0;
 }
 
-.bloque-texto strong {
-  color: #FDFDFD;
+.bloque-linea .verde {
+  color: #ADFF00;
   font-weight: 700;
 }
 
 /* ── MOBILE ── */
 @media (max-width: 767px) {
-
-#decision {
-  margin-top: 0;
-}
+  #decision {
+    margin-top: 0;
+  }
 
   .decision-sticky {
     height: auto;
@@ -283,16 +268,53 @@
   }
 
   .decision-card {
-    flex-direction: column;
-    align-items: flex-start;
-  }
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
 
-  .personas-grid {
+    .personas-grid {
+    grid-template-columns: repeat(10, 1fr);
     width: 100%;
-  }
+    gap: 6px;
+    row-gap: 0;
+    }
+
+    .persona {
+    width: 100%;
+    }
 
   .decision-circulo {
-    width: 130px;
-    height: 130px;
+    width: 160px;
+    height: 160px;
   }
+
+.decision-circulo-num {
+  font-size: 40px;
+}
+
+.decision-circulo-texto {
+  font-size: 13px;
+}
+  .card-texto {
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.bloque-linea {
+  font-size: 22px;
+  line-height: 1.5;
+    text-align: center;
+}
+
+.decision-contenido {
+  gap: 40px;
+}
+
+
+.decision-bloque {
+  padding: 16px 4px 0;
+  max-width: 100%;
+}
+
 }

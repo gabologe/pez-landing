@@ -21,11 +21,11 @@ document.addEventListener('DOMContentLoaded', function () {
   const iconoItems = document.querySelectorAll('.icono-item');
 
   function animarIcono(item, p) {
-    const fill   = item.querySelector('.icono-circulo-fill');
-    const svg    = item.querySelector('.icono-circulo-wrap svg');
-const titulos = item.querySelectorAll('.icono-titulo-inner');
-    const texto  = item.querySelector('.icono-texto');
-    const base   = item.querySelector('.icono-circulo-base');
+    const fill    = item.querySelector('.icono-circulo-fill');
+    const img     = item.querySelector('.icono-svg-img');
+    const titulos = item.querySelectorAll('.icono-titulo-inner');
+    const texto   = item.querySelector('.icono-texto');
+    const base    = item.querySelector('.icono-circulo-base');
 
     // Border gris → verde
     base.style.borderColor = `rgba(173, 255, 0, ${p})`;
@@ -34,18 +34,20 @@ const titulos = item.querySelectorAll('.icono-titulo-inner');
     const fillPct = Math.max(0, Math.min(100, p * 100));
     fill.style.clipPath = `inset(0% 0% ${100 - fillPct}% 0%)`;
 
-    // SVG aparece desde p > 0.5
-    svg.style.opacity = Math.max(0, (p - 0.5) * 2);
+    // Ícono aparece desde p > 0.5
+    if (img) img.style.opacity = Math.max(0, (p - 0.5) * 2);
 
-    // Título revela desde abajo
+    // Títulos revelan desde abajo
     const tY = Math.max(0, (1 - Math.max(0, (p - 0.3) / 0.7)) * 100);
     titulos.forEach(t => {
-  t.style.transform = `translateY(${tY}%)`;
-});
+      t.style.transform = `translateY(${tY}%)`;
+    });
 
     // Subtexto fade in
-    texto.style.opacity = Math.max(0, (p - 0.5) * 2);
-    texto.style.transform = `translateY(${Math.max(0, (1 - Math.max(0, (p - 0.5) / 0.5)) * 8)}px)`;
+    if (texto) {
+      texto.style.opacity = Math.max(0, (p - 0.5) * 2);
+      texto.style.transform = `translateY(${Math.max(0, (1 - Math.max(0, (p - 0.5) / 0.5)) * 8)}px)`;
+    }
   }
 
   ScrollTrigger.create({
