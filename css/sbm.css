@@ -1,0 +1,476 @@
+#sbm {
+  position: relative;
+  background: #0E0E0E;
+  padding-top: 160px;
+  padding-bottom: 0;
+}
+
+.sbm__pin-wrap {
+  position: relative;
+}
+
+.sbm__intro {
+  padding: 0 60px;
+  margin-bottom: 24px;
+  position: relative;
+  z-index: 2;
+}
+
+.sbm__subtitle-col {
+  word-break: keep-all;
+  overflow-wrap: normal;
+  margin-bottom: 12px;
+  font-size: clamp(10px, 2.8vw, 13px);
+}
+
+.sbm__subtitle {
+  font-family: 'Public Sans', sans-serif;
+  font-size: clamp(13px, 1.1vw, 16px);
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  color: rgba(253, 253, 253, 0.45);
+  text-transform: uppercase;
+  margin: 0;
+  display: block;
+  line-height: 1.5;
+}
+
+.sbm__subtitle .char {
+  display: inline-block;
+  opacity: 0;
+  filter: blur(8px);
+  transform: translateY(4px);
+}
+
+.sbm__title-col {
+  overflow: hidden;
+}
+
+.sbm__title {
+  font-family: 'Public Sans', sans-serif;
+  font-size: clamp(32px, 4.5vw, 66px);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  color: #FDFDFD;
+  text-transform: none;
+  margin: 0;
+}
+
+.sbm__title .line {
+  display: block;
+  overflow: hidden;
+}
+
+.sbm__title .line-inner {
+  display: block;
+}
+
+.sbm__title .verde {
+  color: #ADFF00;
+}
+
+/* =============================================
+   CARDS
+   ============================================= */
+
+.sbm__cards-space {
+  position: relative;
+  height: auto;
+}
+
+.sbm__cards-sticky {
+  position: relative;
+  height: 60vh;
+  display: flex;
+  align-items: stretch;
+  padding: 40px 60px;
+  gap: 12px;
+  pointer-events: none;
+}
+
+/* ── Card base ── */
+.sbm__card {
+  position: relative;
+  border: 1px solid transparent;
+  background: #1a1a1a;
+  overflow: hidden;
+  pointer-events: auto;
+  border-radius: 16px;
+  min-width: 0;
+  flex: 1;
+  transition: flex 0.7s cubic-bezier(0.16,1,0.3,1),
+              border-color 0.5s ease,
+              background 0.5s ease;
+}
+
+/* ── Collapsed ── */
+.sbm__card-collapsed {
+  position: absolute;
+  top: 24px;
+  left: 20px;
+  right: 20px;
+    bottom: 24px;
+      display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.sbm__card.is-active .sbm__card-collapsed {
+  opacity: 0;
+}
+
+.sbm__card-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+/* Flecha collapsed */
+.sbm__card-arrow {
+  width: 14px;
+  height: 14px;
+  display: inline-block;
+  transform: rotate(90deg);
+  transition: transform 0.5s cubic-bezier(0.16,1,0.3,1),
+              opacity 0.4s ease;
+  opacity: 0.35;
+  filter: brightness(0) invert(1);
+  flex-shrink: 0;
+}
+
+.sbm__card-num-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sbm__card-num {
+  font-family: 'Public Sans', sans-serif;
+  font-size: clamp(13px, 1vw, 16px);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: rgba(253, 253, 253, 0.35);
+  line-height: 1;
+  transition: font-size 0.4s ease, color 0.4s ease;
+}
+
+.sbm__card-collapsed .sbm__card-underline {
+  height: 1px;
+  width: 100%;
+  background: rgba(253, 253, 253, 0.15);
+  transition: background 0.4s ease;
+  margin-top: 0;
+}
+
+/* ── Pre-activa ── */
+.sbm__card.is-pre {
+  border-color: rgba(173, 255, 0, 0.15);
+  background: #111;
+}
+
+.sbm__card.is-pre .sbm__card-arrow {
+  transform: rotate(-45deg);
+  opacity: 0.7;
+}
+
+.sbm__card.is-pre .sbm__card-num {
+  font-size: clamp(20px, 2vw, 26px);
+  color: rgba(253, 253, 253, 0.7);
+}
+
+/* ── Activa ── */
+.sbm__card.is-active {
+  flex: 3.5;
+  border-radius: 20px;
+  border-color: #ADFF00;
+  background: #0E0E0E;
+}
+
+/* ── Expanded ── */
+.sbm__card-expanded {
+  position: absolute;
+  inset: 0;
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.4s ease 0.2s, transform 0.4s ease 0.2s;
+  pointer-events: none;
+}
+
+.sbm__card.is-active .sbm__card-expanded {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+
+
+.sbm__card-expanded .sbm__card-header {
+  align-items: flex-start;
+}
+
+/* Flecha activa */
+.sbm__card-arrow-active {
+  width: 35px;
+  height: 35px;
+  display: inline-block;
+  transform: rotate(-45deg);
+  opacity: 1;
+  margin-top: 8px;
+  flex-shrink: 0;
+  filter: brightness(0) saturate(100%) invert(89%) sepia(60%) saturate(800%) hue-rotate(30deg) brightness(110%);
+}
+
+.sbm__card-num-big {
+  font-family: 'Public Sans', sans-serif;
+  font-size: clamp(40px, 5vw, 72px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: #0E0E0E;
+  -webkit-text-stroke: 0.5px #ADFF00;
+  line-height: 1;
+}
+
+.sbm__card-expanded .sbm__card-underline {
+  height: 3px;
+  width: fit-content;
+  min-width: 60px;
+  align-self: flex-start;
+  background: #ADFF00;
+  border-radius: 2px;
+}
+
+.sbm__card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.sbm__card-name {
+  font-family: 'Public Sans', sans-serif;
+  font-size: clamp(24px, 2.5vw, 40px);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #FDFDFD;
+  text-transform: uppercase;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.sbm__card-desc {
+  font-family: 'Public Sans', sans-serif;
+  font-size: clamp(13px, 1vw, 16px);
+  font-weight: 300;
+  line-height: 1.6;
+  color: rgba(253, 253, 253, 0.45);
+  margin: 0;
+}
+
+/* ── Ya pasada ── */
+.sbm__card.is-done {
+  flex: 1;
+  border-color: transparent;
+  background: #1a1a1a;
+}
+
+.sbm__card.is-done .sbm__card-arrow {
+  transform: rotate(-45deg);
+  opacity: 0.15;
+}
+
+.sbm__card.is-done .sbm__card-num {
+  color: rgba(253, 253, 253, 0.9);
+}
+
+.sbm__card.is-done .sbm__card-label {
+  color: #ADFF00;
+}
+
+.sbm__card.is-done .sbm__card-collapsed .sbm__card-underline {
+  background: rgba(253, 253, 253, 0.06);
+    top: auto;
+  bottom: 24px;
+}
+
+.sbm__card-label {
+  font-family: 'Public Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: rgba(253, 253, 253, 0.25);
+  text-transform: uppercase;
+  line-height: 1.4;
+  display: block;
+  margin-top: 8px;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+
+/* =============================================
+   CARD IMAGEN — 04
+   ============================================= */
+
+.sbm__card--image {
+  border: none !important;
+  background: transparent !important;
+  padding: 0;
+}
+
+.sbm__card--image.is-active,
+.sbm__card--image.is-done,
+.sbm__card--image.is-pre {
+  border: none !important;
+  background: transparent !important;
+}
+
+.sbm__card-img-wrap {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  z-index: 1;
+}
+
+.sbm__card-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  will-change: transform;
+}
+
+.sbm__card-img--base {
+  filter: grayscale(1);
+  transition: filter 0.6s ease;
+}
+
+.sbm__card--image.is-active .sbm__card-img--base {
+  filter: grayscale(0);
+}
+
+.sbm__card-img--glitch {
+  filter: grayscale(1);
+  opacity: 0;
+  transition: none;
+}
+
+.sbm__card--image.is-active .sbm__card-img--glitch {
+  filter: grayscale(0);
+}
+
+/* =============================================
+   MOBILE
+   ============================================= */
+
+@media (max-width: 768px) {
+  #sbm {
+    padding-top: 80px;
+  }
+
+  .sbm__title .line {
+    overflow: visible;
+    display: inline;
+  }
+  .sbm__title .line-inner {
+    display: inline;
+  }
+
+  .sbm__intro {
+    padding: 0 24px;
+    margin-bottom: 12px;
+  }
+
+    .sbm__title {
+    font-size: clamp(24px, 7vw, 36px);
+  }
+
+  .sbm__subtitle-col {
+    white-space: normal;
+    word-break: normal;
+    overflow-wrap: break-word;
+    margin-bottom: 12px;
+  }
+
+  .sbm__subtitle {
+    font-size: clamp(10px, 3vw, 13px);
+    white-space: normal;
+    word-break: normal;
+    letter-spacing: 0.15em;
+  }
+
+  .sbm__cards-space {
+    height: auto;
+  }
+
+  .sbm__cards-sticky {
+    position: relative;
+    height: 75vh;
+    flex-direction: column;
+    padding: 16px 24px;
+    gap: 8px;
+  }
+
+  .sbm__card {
+    flex: 1;
+    min-width: 0;
+    min-height: 0;
+    border: 1px solid transparent;
+  }
+
+  .sbm__card.is-active {
+    flex: 3.5;
+    min-height: 0;
+  }
+
+  .sbm__card-label {
+    writing-mode: horizontal-tb;
+    transform: none;
+    font-size: 10px;
+  }
+
+  .sbm__card--image {
+    border: none !important;
+  object-fit: cover;
+  position: relative;
+    will-change: transform;
+
+  }
+
+  .sbm__card-collapsed {
+    top: 16px;
+    left: 16px;
+    right: 16px;
+    bottom: 16px;
+  }
+
+  .sbm__card-expanded {
+    padding: 16px;
+  }
+
+  .sbm__card-name {
+    font-size: clamp(18px, 5vw, 28px);
+  }
+
+  .sbm__card-desc {
+    font-size: clamp(12px, 3.5vw, 14px);
+  }
+
+  .sbm__card-num-big {
+    font-size: clamp(32px, 10vw, 52px);
+  }
+
+  .sbm__card-img--base {
+    filter: grayscale(1);
+  }
+}

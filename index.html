@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="css/hero.css">
   <link rel="stylesheet" href="css/verdades.css">
   <link rel="stylesheet" href="css/decision.css">
+  <link rel="stylesheet" href="css/sbm.css">
 </head>
 <body>
 
@@ -222,6 +223,114 @@
       </div>
     </section>
 
+<section id="sbm">
+  <div class="sbm__pin-wrap">
+
+    <div class="sbm__intro">
+      <div class="sbm__subtitle-col">
+        <span class="sbm__subtitle">#1 Signal-Based Marketing in LATAM</span>
+      </div>
+      <div class="sbm__title-col">
+        <h2 class="sbm__title">
+          <span class="line"><span class="line-inner">Detectamos <span class="verde">señales</span> y activamos</span></span>
+          <span class="line"><span class="line-inner">el <span class="verde">contenido</span> que acelera</span></span>
+          <span class="line"><span class="line-inner">el proceso de <span class="verde">decisión</span></span></span>
+        </h2>
+      </div>
+    </div>
+
+    <div class="sbm__cards-space">
+      <div class="sbm__cards-sticky">
+
+        <!-- Card 01 -->
+        <div class="sbm__card">
+          <div class="sbm__card-collapsed">
+            <div class="sbm__card-header">
+              <img src="img/right.svg" class="sbm__card-arrow">
+              <div class="sbm__card-num-wrap">
+                <span class="sbm__card-num">01</span>
+                <div class="sbm__card-underline"></div>
+              </div>
+            </div>
+            <span class="sbm__card-label">Brand Listening &amp; Audience Intelligence</span>
+          </div>
+          <div class="sbm__card-expanded">
+            <div class="sbm__card-header">
+              <img src="img/right.svg" class="sbm__card-arrow-active">
+              <span class="sbm__card-num-big">01</span>
+            </div>
+            <div class="sbm__card-underline"></div>
+            <div class="sbm__card-body">
+              <h3 class="sbm__card-name">Brand Listening &amp;<br>Audience Intelligence</h3>
+              <p class="sbm__card-desc">Lectura de señales, tensiones y comportamientos de decisión.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 02 -->
+        <div class="sbm__card">
+          <div class="sbm__card-collapsed">
+            <div class="sbm__card-header">
+              <img src="img/right.svg" class="sbm__card-arrow">
+              <div class="sbm__card-num-wrap">
+                <span class="sbm__card-num">02</span>
+                <div class="sbm__card-underline"></div>
+              </div>
+            </div>
+            <span class="sbm__card-label">Content That Converts</span>
+          </div>
+          <div class="sbm__card-expanded">
+            <div class="sbm__card-header">
+              <img src="img/right.svg" class="sbm__card-arrow-active">
+              <span class="sbm__card-num-big">02</span>
+            </div>
+            <div class="sbm__card-underline"></div>
+            <div class="sbm__card-body">
+              <h3 class="sbm__card-name">Content That Converts</h3>
+              <p class="sbm__card-desc">Sistema narrativo que transforma atención en confianza y decisión.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 03 -->
+        <div class="sbm__card">
+          <div class="sbm__card-collapsed">
+            <div class="sbm__card-header">
+              <img src="img/right.svg" class="sbm__card-arrow">
+              <div class="sbm__card-num-wrap">
+                <span class="sbm__card-num">03</span>
+                <div class="sbm__card-underline"></div>
+              </div>
+            </div>
+            <span class="sbm__card-label">Action-Oriented Alerts</span>
+          </div>
+          <div class="sbm__card-expanded">
+            <div class="sbm__card-header">
+              <img src="img/right.svg" class="sbm__card-arrow-active">
+              <span class="sbm__card-num-big">03</span>
+            </div>
+            <div class="sbm__card-underline"></div>
+            <div class="sbm__card-body">
+              <h3 class="sbm__card-name">Action-Oriented Alerts</h3>
+              <p class="sbm__card-desc">Direcciones concretas para activar contenido en el momento adecuado.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 04 — imagen -->
+        <div class="sbm__card sbm__card--image">
+          <div class="sbm__card-img-wrap">
+            <img src="img/girl.jpg" alt="" class="sbm__card-img sbm__card-img--base" id="sbm-parallax-img">
+            <img src="img/girl2.jpg" alt="" class="sbm__card-img sbm__card-img--glitch">
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
   </div><!-- fin #main-scroll -->
 
   <script src="https://unpkg.com/lenis@1.1.1/dist/lenis.min.js"></script>
@@ -229,8 +338,16 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="js/scramble.js"></script>
   <script src="js/header.js"></script>
+  <script src="js/hint.js"></script>    
   <script src="js/hero.js"></script>
   <script src="js/verdades.js"></script>
   <script src="js/decision.js"></script>
+  <script src="js/sbm.js"></script>
+
+  <!-- DEGRADADO FIXED BOTTOM -->
+  <div id="bottom-fade"></div>
+
+  <!-- FLECHA SCROLL (movida fuera del hero para ser siempre fixed global) -->
+   
 </body>
 </html>

@@ -2,9 +2,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
   gsap.registerPlugin(ScrollTrigger);
 
-  // ─────────────────────────────────────────
-  // REFERENCIAS
-  // ─────────────────────────────────────────
   const logoHero      = document.getElementById('logo-hero');
   const logoHeroWrap  = document.getElementById('logo-hero-wrap');
   const headerLogo    = document.getElementById('header-logo');
@@ -25,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const isMobile = window.innerWidth <= 767;
 
   // ─────────────────────────────────────────
-  // FLECHA ÚNICA
+  // FLECHA — solo fase hero
   // ─────────────────────────────────────────
   let hintCycle  = null;
   let hideTimer  = null;
@@ -137,16 +134,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (p >= 0.95 && !logoArrived) {
           logoArrived = true;
-          gsap.set(headerWrap,   { opacity: 1 });
-          gsap.set(logoHeroWrap, { opacity: 0, display: 'none' });
+          gsap.set(headerWrap, { opacity: 1 });
         } else if (p < 0.95 && logoArrived) {
           logoArrived = false;
-          gsap.set(headerWrap,   { opacity: 0 });
-          gsap.set(logoHeroWrap, { opacity: 1, display: 'block' });
+          gsap.set(headerWrap, { opacity: 0 });
         }
 
-        // A partir del 70% del progreso la flecha
-        // ya va a la izquierda — los textos ya están entrando
         if (p >= 0.7) {
           setHintPosition('left');
           if (!hintActive) {
@@ -199,17 +192,49 @@ document.addEventListener('DOMContentLoaded', function () {
     line3.classList.add('green');
   }, 5);
 
-// ─────────────────────────────────────────
-  // FLECHA — cambia posición al salir del hero
+  // ─────────────────────────────────────────
+  // AL SALIR DEL HERO — cede control a hint.js
   // ─────────────────────────────────────────
   ScrollTrigger.create({
     trigger: '#hero-scroll-space',
     start: 'bottom bottom',
-    onLeave:     () => {
-      setHintPosition('center');
-      startHintCycle();
+    onLeave: () => {
+      stopHintCycle();
+      hint.classList.remove('position-left');
+      if (window.HintGlobal) window.HintGlobal.start();
     },
-    onEnterBack: () => setHintPosition('left')
+    onEnterBack: () => {
+      if (window.HintGlobal) window.HintGlobal.stop();
+      setHintPosition('left');
+      if (!hintActive) {
+        hintActive = true;
+        clearTimeout(hintCycle);
+        clearTimeout(hideTimer);
+        hintCycle = setTimeout(showHint, 1500);
+      }
+    }
+  });
+
+  // ─────────────────────────────────────────
+  // LOGO HERO — desaparece al entrar verdades
+  // ─────────────────────────────────────────
+  ScrollTrigger.create({
+    trigger: '#verdades',
+    start: 'top 90%',
+    onEnter: () => {
+      gsap.to(logoHeroWrap, {
+        opacity: 0,
+        duration: 0.4,
+        ease: 'power2.out',
+        onComplete: () => {
+          gsap.set(logoHeroWrap, { display: 'none' });
+        }
+      });
+    },
+    onLeaveBack: () => {
+      gsap.set(logoHeroWrap, { display: 'block' });
+      gsap.to(logoHeroWrap, { opacity: 1, duration: 0.4, ease: 'power2.out' });
+    }
   });
 
   // ─────────────────────────────────────────
@@ -224,7 +249,15 @@ document.addEventListener('DOMContentLoaded', function () {
         trigger: '#verdades',
         start: 'top 90%',
         end: 'top 30%',
-        scrub: 1.5
+        scrub: 1.5,
+        onLeave: () => {
+          heroWrap.style.position = 'relative';
+          heroWrap.style.zIndex = '0';
+        },
+        onEnterBack: () => {
+          heroWrap.style.position = 'sticky';
+          heroWrap.style.zIndex = '2';
+        }
       }
     });
   }
@@ -240,9 +273,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   // ─────────────────────────────────────────
-  // SCROLL LISTENER
-  // Solo interrumpe la flecha mientras el usuario
-  // está en la fase de scroll activo
+  // SCROLL LISTENER — interrumpe flecha en fase hero
   // ─────────────────────────────────────────
   window.addEventListener('scroll', () => {
     const spaceBottom  = heroSpace.getBoundingClientRect().bottom;
@@ -255,7 +286,8 @@ document.addEventListener('DOMContentLoaded', function () {
       hintCycle = setTimeout(showHint, 2000);
     }
   });
-// ─────────────────────────────────────────
+
+  // ─────────────────────────────────────────
   // PERSPECTIVE TILT en el video
   // ─────────────────────────────────────────
   const tiltWrap = document.querySelector('.hero-right');
@@ -283,9 +315,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function tiltLoop() {
       cx += (tx - cx) * 0.06;
       cy += (ty - cy) * 0.06;
-
       tiltEl.style.transform = `perspective(900px) rotateX(${cx}deg) rotateY(${cy}deg)`;
-
       if (Math.abs(tx - cx) > 0.01 || Math.abs(ty - cy) > 0.01) {
         tiltRaf = requestAnimationFrame(tiltLoop);
       } else {
@@ -295,4 +325,39 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
+});
+
+// ─────────────────────────────────────────
+// HEADER — hide on scroll down, show on scroll up, auto-hide after 3s
+// ─────────────────────────────────────────
+let lastScrollY = window.scrollY;
+let ticking = false;
+let headerHideTimer = null;
+const siteHeader = document.getElementById('site-header');
+
+function scheduleHeaderHide() {
+  clearTimeout(headerHideTimer);
+  headerHideTimer = setTimeout(() => {
+    siteHeader.style.transform = 'translateY(-100%)';
+  }, 3000);
+}
+
+window.addEventListener('scroll', () => {
+  if (!ticking) {
+    window.requestAnimationFrame(() => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY > lastScrollY && currentScrollY > 80) {
+        siteHeader.style.transform = 'translateY(-100%)';
+        clearTimeout(headerHideTimer);
+      } else {
+        siteHeader.style.transform = 'translateY(0)';
+        scheduleHeaderHide();
+      }
+
+      lastScrollY = currentScrollY;
+      ticking = false;
+    });
+    ticking = true;
+  }
 });
