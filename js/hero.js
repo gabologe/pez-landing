@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', function () {
       trigger: '#hero-scroll-space',
       start: 'top top',
       end: '60% top',
-      scrub: 2.5,
+      scrub: true,
       onEnter: () => {
         stopHintCycle();
       },
@@ -192,28 +192,40 @@ document.addEventListener('DOMContentLoaded', function () {
     line3.classList.add('green');
   }, 5);
 
-  // ─────────────────────────────────────────
-  // AL SALIR DEL HERO — cede control a hint.js
-  // ─────────────────────────────────────────
-  ScrollTrigger.create({
-    trigger: '#hero-scroll-space',
-    start: 'bottom bottom',
-    onLeave: () => {
-      stopHintCycle();
+// ─────────────────────────────────────────
+// AL TERMINAR EL HERO — cede control a hint.js
+// ─────────────────────────────────────────
+ScrollTrigger.create({
+  trigger: '#hero-scroll-space',
+  start: 'bottom bottom',
+
+  onEnter: () => {
+    stopHintCycle();
+
+    if (hint) {
       hint.classList.remove('position-left');
-      if (window.HintGlobal) window.HintGlobal.start();
-    },
-    onEnterBack: () => {
-      if (window.HintGlobal) window.HintGlobal.stop();
-      setHintPosition('left');
-      if (!hintActive) {
-        hintActive = true;
-        clearTimeout(hintCycle);
-        clearTimeout(hideTimer);
-        hintCycle = setTimeout(showHint, 1500);
-      }
     }
-  });
+
+    if (window.HintGlobal) {
+      window.HintGlobal.start();
+    }
+  },
+
+  onLeaveBack: () => {
+    if (window.HintGlobal) {
+      window.HintGlobal.stop();
+    }
+
+    setHintPosition('left');
+
+    if (!hintActive) {
+      hintActive = true;
+      clearTimeout(hintCycle);
+      clearTimeout(hideTimer);
+      hintCycle = setTimeout(showHint, 1500);
+    }
+  }
+});
 
   // ─────────────────────────────────────────
   // LOGO HERO — desaparece al entrar verdades

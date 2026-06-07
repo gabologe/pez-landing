@@ -1,67 +1,130 @@
 (function () {
 
-  let hint   = null;
-  let cycle  = null;
-  let hideT  = null;
+  let hint = null;
+  let showTimer = null;
+  let hideTimer = null;
+  let scrollTimer = null;
   let active = false;
+  let initialized = false;
+  let isScrolling = false;
 
-  function show() {
-    if (!active || !hint) return;
-    hint.classList.add('visible');
-    hideT = setTimeout(() => {
-      hint.classList.remove('visible');
-      if (active) cycle = setTimeout(show, 2500);
-    }, 5000);
-  }
+  // Se ve poco tiempo
+  const VISIBLE_TIME = 1600;
 
-  function start() {
-    if (active || !hint) return;
-    active = true;
-    hint.classList.remove('position-left');
-    clearTimeout(cycle);
-    clearTimeout(hideT);
-    cycle = setTimeout(show, 1200);
-  }
+  // Se mantiene oculta bastante tiempo
+  const HIDDEN_TIME = 20000;
 
-  function stop() {
-    active = false;
-    clearTimeout(cycle);
-    clearTimeout(hideT);
-    if (hint) hint.classList.remove('visible');
-  }
+  // Espera después de que el usuario deja de scrollear
+  const AFTER_SCROLL_PAUSE = 16500;
 
-  let scrollPause = null;
-  window.addEventListener('scroll', () => {
-    if (!active || !hint) return;
-    hint.classList.remove('visible');
-    clearTimeout(cycle);
-    clearTimeout(hideT);
-    clearTimeout(scrollPause);
-    scrollPause = setTimeout(() => {
-      if (active) cycle = setTimeout(show, 2000);
-    }, 800);
-  }, { passive: true });
-
-  window.HintGlobal = { start, stop };
-
-  // Init con retry por si ScrollTrigger no está listo
   function init() {
-    hint = document.getElementById('scroll-hint');
-    if (!hint) return;
+    if (initialized) return;
 
-    if (typeof ScrollTrigger === 'undefined') {
+    hint = document.getElementById('scroll-hint');
+
+    if (!hint) {
       setTimeout(init, 100);
       return;
     }
 
-    ScrollTrigger.create({
-      trigger: '#hero-scroll-space',
-      start: 'bottom 95%',
-      onEnter:     () => start(),
-      onLeaveBack: () => stop(),
-    });
+    initialized = true;
   }
 
-  init();
+  function clearAllTimers() {
+    clearTimeout(showTimer);
+    clearTimeout(hideTimer);
+    clearTimeout(scrollTimer);
+  }
+
+  function showHint() {
+    if (!active || !hint || isScrolling) return;
+
+    hint.classList.add('visible');
+
+    hideTimer = setTimeout(() => {
+      hideHint();
+    }, VISIBLE_TIME);
+  }
+
+  function hideHint() {
+    if (!active || !hint) return;
+
+    hint.classList.remove('visible');
+
+    showTimer = setTimeout(() => {
+      showHint();
+    }, HIDDEN_TIME);
+  }
+
+  function startCycle() {
+    if (!active || !hint) return;
+
+    clearTimeout(showTimer);
+    clearTimeout(hideTimer);
+
+    showTimer = setTimeout(() => {
+      showHint();
+    }, HIDDEN_TIME);
+  }
+
+  function start() {
+    if (!hint) init();
+    if (!hint) return;
+
+    active = true;
+    isScrolling = false;
+
+    hint.classList.remove('position-left');
+    hint.classList.remove('visible');
+
+    clearAllTimers();
+
+    // Primer recordatorio después de una pausa
+    showTimer = setTimeout(() => {
+      showHint();
+    }, HIDDEN_TIME);
+  }
+
+  function stop() {
+    active = false;
+    isScrolling = false;
+
+    clearAllTimers();
+
+    if (hint) {
+      hint.classList.remove('visible');
+      hint.classList.remove('position-left');
+    }
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!active || !hint) return;
+
+    isScrolling = true;
+    hint.classList.remove('visible');
+
+    clearAllTimers();
+
+    scrollTimer = setTimeout(() => {
+      isScrolling = false;
+
+      if (!active) return;
+
+      showTimer = setTimeout(() => {
+        showHint();
+      }, AFTER_SCROLL_PAUSE);
+    }, 300);
+  }, { passive: true });
+
+  window.HintGlobal = {
+    start,
+    stop
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
 
 })();

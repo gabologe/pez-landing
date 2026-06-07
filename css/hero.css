@@ -123,6 +123,7 @@
   white-space: nowrap;
   transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
+
 .cta-btn:hover,
 .cta-btn:active {
   background: #ADFF00;
@@ -130,8 +131,13 @@
   border-color: #ADFF00;
 }
 
-.cta-desktop { display: block; }
-.cta-mobile  { display: none;  }
+.cta-desktop {
+  display: block;
+}
+
+.cta-mobile {
+  display: none;
+}
 
 /* ── MITAD DERECHA DESKTOP ── */
 .hero-right {
@@ -158,7 +164,6 @@
   background: #1a1a1a;
   transform-origin: center center;
   position: relative;
-  transform-origin: center center;
   will-change: transform;
 }
 
@@ -187,7 +192,9 @@
   transition: opacity 0.8s ease;
 }
 
-.scroll-hint.visible { opacity: 1; }
+.scroll-hint.visible {
+  opacity: 1;
+}
 
 .scroll-hint.position-left {
   left: 25%;
@@ -203,8 +210,16 @@
 }
 
 @keyframes chevPulse {
-  0%,100% { opacity: 0.2; transform: rotate(45deg) translate(-2px,-2px); }
-  50%     { opacity: 1;   transform: rotate(45deg) translate(2px,2px); }
+  0%,
+  100% {
+    opacity: 0.2;
+    transform: rotate(45deg) translate(-2px, -2px);
+  }
+
+  50% {
+    opacity: 1;
+    transform: rotate(45deg) translate(2px, 2px);
+  }
 }
 
 /* ── SCROLL SPACE ── */
@@ -291,14 +306,16 @@
     -webkit-text-stroke: 0.5px #ADFF00;
   }
 
-  .cta-desktop { display: none; }
+  .cta-desktop {
+    display: none;
+  }
 
   .cta-mobile {
     display: block;
     order: 3;
     flex-shrink: 0;
     width: calc(100% - 10vw);
-    margin: 2vw 5vw 0;
+    margin: 2vw 5vw 7vh;
     padding: 14px 0;
     text-align: center;
     opacity: 0;
@@ -307,25 +324,25 @@
     letter-spacing: 0.12em;
   }
 
-  /* Flecha: fixed también en mobile, NO relative */
-.scroll-hint {
-  position: relative;
-  bottom: auto;
-  left: auto;
-  transform: none;
-  height: 7vh;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0;
-  order: 4;
-  opacity: 0;
-  pointer-events: none;
-}
+  /* Flecha: sigue siendo global también en mobile */
+  .scroll-hint {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    height: auto;
+    padding-bottom: 20px;
+    z-index: 300;
+    opacity: 0;
+    pointer-events: none;
+  }
 
-.scroll-hint.position-left {
-  left: auto;
-}
+  .scroll-hint.visible {
+    opacity: 1;
+  }
+
+  .scroll-hint.position-left {
+    left: 50%;
+  }
 
 }
