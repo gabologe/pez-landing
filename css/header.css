@@ -55,18 +55,19 @@
 /* CTA header — invisible por defecto */
 .cta-header {
   font-family: 'Public Sans', sans-serif;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.28em;
   color: #FDFDFD;
   background: transparent;
   border: 1px solid rgba(173,255,0,0.5);
-  padding: 9px 24px;
-  border-radius: 8px;
+  padding: 9px 16px;
+  border-radius: 4px;
   cursor: pointer;
   opacity: 0;
   pointer-events: none;
-  width: 200px;
+  width: 172px;
+min-width: 172px;
   text-align: center;
   white-space: nowrap;
   transition: background 0.3s ease, color 0.3s ease,
@@ -96,9 +97,11 @@
   }
 
   .cta-header {
-    width: auto;
-    min-width: 150px;
-    padding: 9px 12px;
+    width: 142px;
+    min-width: 142px;
+    padding: 9px 10px;
+    letter-spacing: 0.22em;
+    box-sizing: border-box;
   }
 
   .header-inner {

@@ -38,7 +38,6 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  background: #0E0E0E;
   padding-top: 64px;
   overflow: hidden;
 }
@@ -107,14 +106,14 @@
 /* ── CTA ── */
 .cta-btn {
   font-family: 'Public Sans', sans-serif;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.36em;
   color: #FDFDFD;
   background: transparent;
   border: 1px solid rgba(173,255,0,0.5);
   padding: 16px 40px;
-  border-radius: 8px;
+  border-radius: 4px;
   cursor: pointer;
   opacity: 0;
   width: 260px;
@@ -176,35 +175,70 @@
 }
 
 /* ── FLECHA — fixed global ── */
-.scroll-hint {
-  position: fixed;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  z-index: 300;
-  pointer-events: none;
+#scroll-hint {
+  position: fixed !important;
+  bottom: 0 !important;
+  left: 50% !important;
+  right: auto !important;
+  top: auto !important;
+
+  width: 24px !important;
+  height: 44px !important;
+  min-width: 24px !important;
+  max-width: 24px !important;
+
+  transform: translateX(-50%) !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  z-index: 300 !important;
+  pointer-events: none !important;
   opacity: 0;
-  padding-bottom: 20px;
+
+  padding: 0 0 20px 0 !important;
+  margin: 0 !important;
+
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  outline: 0 !important;
+
   transition: opacity 0.8s ease;
 }
 
-.scroll-hint.visible {
+#scroll-hint.visible {
   opacity: 1;
 }
 
-.scroll-hint.position-left {
-  left: 25%;
+/* Solo durante el hero desktop puede ir a la izquierda */
+#scroll-hint.position-left:not(.is-global) {
+  left: 25% !important;
+  transform: translateX(-50%) !important;
 }
 
-.hint-chevron {
-  width: 14px;
-  height: 14px;
-  border-right: 2px solid #c8f263;
-  border-bottom: 2px solid #c8f263;
+/* Fuera del hero siempre queda centrada */
+#scroll-hint.is-global,
+#scroll-hint.is-global.position-left {
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+}
+
+#scroll-hint .hint-chevron {
+  width: 14px !important;
+  height: 14px !important;
+  display: block !important;
+
+  background: transparent !important;
+  border-top: 0 !important;
+  border-left: 0 !important;
+  border-right: 2px solid #c8f263 !important;
+  border-bottom: 2px solid #c8f263 !important;
+
+  box-shadow: none !important;
+  outline: 0 !important;
+
   transform: rotate(45deg);
   animation: chevPulse 1.9s ease-in-out infinite;
 }
@@ -324,25 +358,27 @@
     letter-spacing: 0.12em;
   }
 
-  /* Flecha: sigue siendo global también en mobile */
-  .scroll-hint {
-    position: fixed;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    height: auto;
-    padding-bottom: 20px;
-    z-index: 300;
-    opacity: 0;
-    pointer-events: none;
-  }
+  /* Flecha: siempre centrada en mobile */
+  #scroll-hint,
+  #scroll-hint.position-left,
+  #scroll-hint.is-global,
+  #scroll-hint.is-global.position-left {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 50% !important;
+    right: auto !important;
+    top: auto !important;
 
-  .scroll-hint.visible {
-    opacity: 1;
-  }
+    width: 24px !important;
+    height: 44px !important;
 
-  .scroll-hint.position-left {
-    left: 50%;
-  }
+    transform: translateX(-50%) !important;
 
+    padding: 0 0 20px 0 !important;
+    margin: 0 !important;
+
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+  }
 }

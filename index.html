@@ -7,8 +7,8 @@
 
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/header.css">
-  <link rel="stylesheet" href="css/hero.css">
-  <link rel="stylesheet" href="css/verdades.css">
+  <link rel="stylesheet" href="css/hero.css?v=3">
+  <link rel="stylesheet" href="css/intropez.css?v=13">
   <link rel="stylesheet" href="css/decision.css">
   <link rel="stylesheet" href="css/sbm.css">
 </head>
@@ -23,14 +23,14 @@
       </div>
 
       <button class="cta-header cta-scramble" id="cta-header">
-        <span class="cta-text">ENTER THE LOOP</span>
+        <span class="cta-text">CONTACTANOS</span>
       </button>
     </div>
 
     <div class="header-line-h" id="header-line-h"></div>
   </header>
 
-  <!-- LOGO HERO (se anima hacia el nav) -->
+  <!-- LOGO HERO -->
   <div id="logo-hero-wrap">
     <img src="img/PEZ_Logo-PEZ-inverse.svg" alt="PEZ®" id="logo-hero">
   </div>
@@ -58,7 +58,7 @@
           </div>
 
           <button class="cta-btn cta-scramble cta-desktop" id="cta-hero">
-            <span class="cta-text">ENTER THE LOOP</span>
+            <span class="cta-text">CONTACTANOS</span>
           </button>
         </div>
 
@@ -78,7 +78,7 @@
         </div>
 
         <button class="cta-btn cta-scramble cta-mobile" id="cta-hero-mobile">
-          <span class="cta-text">ENTER THE LOOP</span>
+          <span class="cta-text">CONTACTANOS</span>
         </button>
 
       </section>
@@ -87,72 +87,89 @@
     <!-- SCROLL SPACE del hero -->
     <div id="hero-scroll-space"></div>
 
-    <!-- SECCIÓN PROPÓSITO -->
-    <section id="verdades">
-      <div class="proposito-scroll-space">
-        <div class="proposito-sticky">
-          <div class="proposito-contenido">
+<!-- SECCIÓN INTRO PEZ -->
+<section id="intropez">
+  <div class="intropez__inner">
 
-            <p
-              class="proposito-frase"
-              id="proposito-frase"
-              data-texto="Detectamos señales de las audiencias y activamos el contenido que las mueve en el proceso de decisión"
-            ></p>
+    <div class="intropez__title-wrap">
+      <h2 class="intropez__title" aria-label="Antes de comprar, las personas dejan señales.">
+        <span class="intropez__title-line">
+          <span class="intropez__title-text" data-text="Antes de comprar,">Antes de comprar,</span>
+        </span>
 
-            <div class="proposito-iconos">
+        <span class="intropez__title-line">
+          <span class="intropez__title-text intropez__title-text--green" data-text="las personas dejan señales.">las personas dejan señales.</span>
+        </span>
+      </h2>
+    </div>
 
-              <div class="icono-item">
-                <div class="icono-circulo-wrap">
-                  <div class="icono-circulo-base"></div>
-                  <div class="icono-circulo-fill"></div>
-                  <img src="img/sign.svg" class="icono-svg-img" alt="">
-                </div>
+    <div class="intropez__system">
 
-                <div class="icono-info">
-                  <span class="icono-titulo">
-                    <span class="icono-titulo-inner">SIGNAL-BASED MARKETING</span>
-                  </span>
-                  <p class="icono-texto">Primeros en sistematizar el marketing basado en señales en LATAM.</p>
-                </div>
-              </div>
+      <div class="intropez__left">
+        <div class="intropez__actions" aria-label="Acciones antes de comprar">
+          <span class="intropez__action is-active">Ven algo.</span>
+          <span class="intropez__action">Vuelven.</span>
+          <span class="intropez__action">Comparan.</span>
+          <span class="intropez__action">Guardan.</span>
+          <span class="intropez__action">Preguntan.</span>
+          <span class="intropez__action">Buscan validación.</span>
+          <span class="intropez__action">Confían.</span>
+          <span class="intropez__action">Comparten.</span>
+          <span class="intropez__action">Dudan.</span>
+          <span class="intropez__action">Deciden.</span>
+        </div>
 
-              <div class="icono-item">
-                <div class="icono-circulo-wrap">
-                  <div class="icono-circulo-base"></div>
-                  <div class="icono-circulo-fill"></div>
-                  <img src="img/mapeados.svg" class="icono-svg-img" alt="">
-                </div>
-
-                <div class="icono-info">
-                  <span class="icono-titulo">
-                    <span class="icono-titulo-inner">+40 SEÑALES MAPEADAS</span>
-                  </span>
-                  <p class="icono-texto">Señales de atención, comparación, validación e intención.</p>
-                </div>
-              </div>
-
-              <div class="icono-item">
-                <div class="icono-circulo-wrap">
-                  <div class="icono-circulo-base"></div>
-                  <div class="icono-circulo-fill"></div>
-                  <img src="img/contenido.svg" class="icono-svg-img" alt="">
-                </div>
-
-                <div class="icono-info">
-                  <span class="icono-titulo">
-                    <span class="icono-titulo-inner">MENOS CONTENIDO AISLADO</span>
-                  </span>
-                  <span class="icono-titulo icono-titulo-verde">
-                    <span class="icono-titulo-inner">MÁS INTENCIÓN ACUMULADA</span>
-                  </span>
-                </div>
-              </div>
-
-            </div>
-          </div>
+        <div class="intropez__closing">
+          <p class="intropez__closing-line">
+            Cada una de esas acciones<br>
+            dice algo sobre la decisión.
+          </p>
         </div>
       </div>
-    </section>
+
+      <div class="intropez__engine" aria-label="PEZ lee, interpreta y activa">
+        <div class="intropez__engine-corners intropez__engine-corners--tl"></div>
+        <div class="intropez__engine-corners intropez__engine-corners--tr"></div>
+        <div class="intropez__engine-corners intropez__engine-corners--bl"></div>
+        <div class="intropez__engine-corners intropez__engine-corners--br"></div>
+
+        <div class="intropez__engine-logo-row">
+          <img
+            src="img/PEZ_Logo-PEZ-inverse.svg"
+            alt="PEZ®"
+            class="intropez__engine-logo"
+          >
+        </div>
+
+        <div class="intropez__engine-steps">
+          <span>LEE</span>
+          <span>INTERPRETA</span>
+          <span>ACTIVA</span>
+        </div>
+      </div>
+
+      <div class="intropez__right">
+        <div class="intropez__output" aria-label="Contenido que mueve intención">
+          <div class="intropez__output-title">
+            <span class="intropez__output-rolling">
+              <span class="intropez__output-roll-text intropez__output-roll-text--one">CONTENIDO QUE</span>
+            </span>
+
+            <span class="intropez__output-rolling">
+              <span class="intropez__output-roll-text intropez__output-roll-text--two">MUEVE INTENCIÓN</span>
+            </span>
+          </div>
+        </div>
+
+        <p class="intropez__output-desc">
+          <strong>PEZ</strong> existe para leer esas señales y convertirlas en contenido que mueve intención.
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
 
     <!-- SECCIÓN DECISIÓN -->
     <section id="decision">
@@ -382,16 +399,16 @@
     <div class="hint-chevron"></div>
   </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
-<script src="js/scramble.js"></script>
-<script src="js/header.js"></script>
-<script src="js/hint.js?v=3"></script>
-<script src="js/hero.js"></script>
-<script src="js/verdades.js"></script>
-<script src="js/decision.js"></script>
-<script src="js/sbm.js"></script>
+  <script src="js/scramble.js"></script>
+  <script src="js/header.js"></script>
+  <script src="js/hint.js?v=4"></script>
+  <script src="js/hero.js?v=3"></script>
+  <script src="js/intropez.js?v=5"></script>
+  <script src="js/decision.js"></script>
+  <script src="js/sbm.js"></script>
 
 </body>
 </html>

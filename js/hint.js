@@ -56,17 +56,6 @@
     }, HIDDEN_TIME);
   }
 
-  function startCycle() {
-    if (!active || !hint) return;
-
-    clearTimeout(showTimer);
-    clearTimeout(hideTimer);
-
-    showTimer = setTimeout(() => {
-      showHint();
-    }, HIDDEN_TIME);
-  }
-
   function start() {
     if (!hint) init();
     if (!hint) return;
@@ -74,12 +63,13 @@
     active = true;
     isScrolling = false;
 
+    // Modo global: siempre centrada
+    hint.classList.add('is-global');
     hint.classList.remove('position-left');
     hint.classList.remove('visible');
 
     clearAllTimers();
 
-    // Primer recordatorio después de una pausa
     showTimer = setTimeout(() => {
       showHint();
     }, HIDDEN_TIME);
@@ -94,6 +84,7 @@
     if (hint) {
       hint.classList.remove('visible');
       hint.classList.remove('position-left');
+      hint.classList.remove('is-global');
     }
   }
 
