@@ -7,12 +7,14 @@ document.addEventListener('DOMContentLoaded', function () {
   const titleParts = section.querySelectorAll('.problema__title-text');
   const intro = section.querySelector('.problema__intro');
   const pezNote = section.querySelector('.problema__pez-note');
-  const list = section.querySelector('.problema__list');
-  const items = gsap.utils.toArray(section.querySelectorAll('.problema__item'));
-
-  const isMobile = window.innerWidth <= 767;
+  const mediaFrame = section.querySelector('.problema__media-frame');
+  const glitchImages = Array.from(section.querySelectorAll('.problema__glitch-img'));
+  const accordionItems = Array.from(section.querySelectorAll('.problema__acc-item'));
+  const accordionTriggers = Array.from(section.querySelectorAll('.problema__acc-trigger'));
 
   let hasPlayed = false;
+  let glitchIndex = 0;
+  let glitchTimer = null;
 
   // ─────────────────────────────────────────
   // PIN DE LA SECCIÓN
@@ -21,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
   ScrollTrigger.create({
     trigger: section,
     start: 'top top',
-    end: isMobile ? '+=2800' : '+=1400',
+    end: '+=1200',
     pin: true,
     pinSpacing: true,
     anticipatePin: 1
@@ -34,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function () {
   function splitTitle() {
     titleParts.forEach((part) => {
       const text = part.dataset.text || part.textContent;
-      const words = text.split(' ');
+      const words = text.trim().split(' ');
 
       part.innerHTML = '';
 
@@ -91,35 +93,105 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  items.forEach((item) => {
-    const num = item.querySelector('.problema__num');
-    const content = item.querySelector('.problema__item-content');
-
-    gsap.set(item, {
-      opacity: 1
+  if (mediaFrame) {
+    gsap.set(mediaFrame, {
+      opacity: 0,
+      y: 18,
+      filter: 'blur(8px)'
     });
+  }
 
-    if (num) {
-      gsap.set(num, {
-        opacity: 0,
-        y: 10
-      });
-    }
+  gsap.set(accordionItems, {
+    opacity: 0,
+    y: 18,
+    filter: 'blur(6px)'
+  });
 
-    if (content) {
-      gsap.set(content, {
-        opacity: 0,
-        y: 12,
-        filter: 'blur(6px)'
-      });
+  // Todos cerrados al inicio
+  accordionItems.forEach((item) => {
+    const trigger = item.querySelector('.problema__acc-trigger');
+
+    item.classList.remove('is-open');
+
+    if (trigger) {
+      trigger.setAttribute('aria-expanded', 'false');
     }
   });
 
-  if (isMobile && list) {
-    gsap.set(list, {
-      x: 0
-    });
+  // ─────────────────────────────────────────
+  // GLITCH IMAGE LOOP
+  // ─────────────────────────────────────────
+
+  function activateGlitchImage(index) {
+  if (!glitchImages.length) return;
+
+  if (mediaFrame) {
+    mediaFrame.classList.add('is-transitioning');
+
+    setTimeout(() => {
+      mediaFrame.classList.remove('is-transitioning');
+    }, 950);
   }
+
+  glitchImages.forEach((img, i) => {
+    img.classList.toggle('is-active', i === index);
+  });
+}
+
+  function startGlitchLoop() {
+    if (!glitchImages.length || glitchTimer) return;
+
+    glitchTimer = setInterval(() => {
+      glitchIndex = (glitchIndex + 1) % glitchImages.length;
+      activateGlitchImage(glitchIndex);
+    }, 1300);
+  }
+
+  function stopGlitchLoop() {
+    if (!glitchTimer) return;
+
+    clearInterval(glitchTimer);
+    glitchTimer = null;
+  }
+
+  // ─────────────────────────────────────────
+  // ACCORDION CLICK
+  // ─────────────────────────────────────────
+
+  function openAccordionItem(targetItem) {
+    const isAlreadyOpen = targetItem.classList.contains('is-open');
+
+    accordionItems.forEach((item) => {
+      const trigger = item.querySelector('.problema__acc-trigger');
+
+      item.classList.remove('is-open');
+
+      if (trigger) {
+        trigger.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    if (!isAlreadyOpen) {
+      const targetTrigger = targetItem.querySelector('.problema__acc-trigger');
+
+      targetItem.classList.add('is-open');
+
+      if (targetTrigger) {
+        targetTrigger.setAttribute('aria-expanded', 'true');
+      }
+    }
+
+    ScrollTrigger.refresh();
+  }
+
+  accordionTriggers.forEach((trigger) => {
+    trigger.addEventListener('click', () => {
+      const item = trigger.closest('.problema__acc-item');
+      if (!item) return;
+
+      openAccordionItem(item);
+    });
+  });
 
   // ─────────────────────────────────────────
   // ANIMACIÓN PRINCIPAL
@@ -132,6 +204,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const tl = gsap.timeline({
       defaults: {
         ease: 'power3.out'
+      },
+      onComplete: () => {
+        startGlitchLoop();
       }
     });
 
@@ -158,125 +233,35 @@ document.addEventListener('DOMContentLoaded', function () {
         y: 0,
         filter: 'blur(0px)',
         duration: 0.65
-      }, 0.95);
+      }, 0.8);
     }
 
-    items.forEach((item, index) => {
-      const num = item.querySelector('.problema__num');
-      const content = item.querySelector('.problema__item-content');
-
-      const start = 1.05 + index * 0.16;
-
-      if (num) {
-        tl.to(num, {
-          opacity: 1,
-          y: 0,
-          duration: 0.45
-        }, start);
-      }
-
-      if (content) {
-        tl.to(content, {
-          opacity: 1,
-          y: 0,
-          filter: 'blur(0px)',
-          duration: 0.55
-        }, start + 0.1);
-      }
-    });
-
-    if (isMobile && items.length) {
-      items[0].classList.add('is-mobile-active');
+    if (mediaFrame) {
+      tl.to(mediaFrame, {
+        opacity: 1,
+        y: 0,
+        filter: 'blur(0px)',
+        duration: 0.75
+      }, 1);
     }
+
+    tl.to(accordionItems, {
+      opacity: 1,
+      y: 0,
+      filter: 'blur(0px)',
+      duration: 0.65,
+      stagger: 0.1
+    }, 1.08);
   }
 
   ScrollTrigger.create({
     trigger: section,
     start: 'top 60%',
-    onEnter: playProblema
+    onEnter: playProblema,
+    onEnterBack: startGlitchLoop,
+    onLeave: stopGlitchLoop,
+    onLeaveBack: stopGlitchLoop
   });
-
-  // ─────────────────────────────────────────
-  // MOBILE — CARRUSEL HORIZONTAL POR SCROLL
-  // ─────────────────────────────────────────
-
-  function setupMobileHorizontalCarousel() {
-    if (!isMobile || !list || !items.length) return;
-
-    let currentIndex = -1;
-
-    // Pausa inicial antes de que el carrusel empiece a moverse.
-    // 0.32 = 32% del recorrido pinneado queda reservado para leer la card 1.
-    const PAUSE_PROGRESS = 0.32;
-
-    function activateItem(index) {
-      if (index === currentIndex) return;
-
-      currentIndex = index;
-
-      items.forEach((item, i) => {
-        item.classList.toggle('is-mobile-active', i === index);
-      });
-    }
-
-    function getMaxTranslate() {
-      const listWidth = list.scrollWidth;
-      const viewportWidth = section.clientWidth;
-      const sidePadding = window.innerWidth * 0.05;
-
-      return Math.max(0, listWidth - viewportWidth + sidePadding);
-    }
-
-    ScrollTrigger.create({
-      trigger: section,
-      start: 'top top',
-      end: '+=2800',
-      scrub: 0.8,
-
-      onUpdate: (self) => {
-        const rawProgress = self.progress;
-
-        const progress = gsap.utils.clamp(
-          0,
-          1,
-          (rawProgress - PAUSE_PROGRESS) / (1 - PAUSE_PROGRESS)
-        );
-
-        const maxTranslate = getMaxTranslate();
-
-        gsap.set(list, {
-          x: -maxTranslate * progress
-        });
-
-        const activeIndex = Math.min(
-          items.length - 1,
-          Math.round(progress * (items.length - 1))
-        );
-
-        activateItem(activeIndex);
-      },
-
-      onEnter: () => {
-        gsap.set(list, { x: 0 });
-        activateItem(0);
-      },
-
-      onEnterBack: () => {
-        activateItem(items.length - 1);
-      },
-
-      onLeaveBack: () => {
-        gsap.set(list, { x: 0 });
-        activateItem(0);
-      }
-    });
-  }
-
-  setupMobileHorizontalCarousel();
-
-  // ─────────────────────────────────────────
-  // RECÁLCULO FINAL
-  // ─────────────────────────────────────────
 
   window.addEventListener('load', () => {
     ScrollTrigger.refresh();
